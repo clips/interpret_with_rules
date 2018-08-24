@@ -6,12 +6,9 @@ from dataset_rules import get_reduced_train_input
 from gradient_rules import get_model_transformed_input
 from data_proc.training import train_nn, load_nn
 from data_proc.prediction import pred_nn
-#from rule_induction.jrip import induce_ripper_rules
+from rule_induction.jrip import induce_ripper_rules
 
 import argparse
-
-# from utils import write_data
-# from feat_explanation import get_shap_explanations
 
 def main(dataset = 'newsgroups', get_baseline = True, test_type = 'test',
          rule_type = 'gradient', feat_sel_algo = 'sa',
