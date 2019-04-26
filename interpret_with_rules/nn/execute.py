@@ -21,7 +21,7 @@ class Model(object):
     def train(self,
             trainloader,
             int_act_fn = 'relu',
-            output_act_fn='softmax',
+            output_act_fn='linear',
             loss_name = 'CrossEntropyLoss',
             optimizer_name ='Adam',
             n_epochs = 50):
@@ -29,7 +29,7 @@ class Model(object):
         Trains a pytorch model
         :param trainloader: dataloader that yields input features and labels
         :param int_act_fn: activation function for hidden layers
-        :param output_act_fn: activation function for output layer
+        :param output_act_fn: activation function for output layer. IMP: Should not be softmax if loss is CrossEntropy.
         :param loss_name: Name of the loss function to use
         :param optimizer_name: Name of the optimizer to use
         :param n_epochs: number of epochs to train a model for
@@ -44,6 +44,10 @@ class Model(object):
 
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 inputs.requires_grad_()
+                
+                if loss_name == 'CrossEntropyLoss' and output_act_fn == 'softmax':
+                    print("Changing output act to linear to make it compatible with the cross entropy loss")
+                    output_act_fn = 'linear'
 
                 fwd_out = self.net.forward(inputs, int_act_fn, output_act_fn)
                 loss = self.net.backprop(fwd_out, labels, loss_name, optimizer_name)

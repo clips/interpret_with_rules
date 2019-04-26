@@ -120,7 +120,8 @@ def get_all_out_grads(inputs, fwd_out):
         grads[i] = grad
 
         inputs.grad.detach_() #IMP!
-
+        inputs.grad.zero_() #IMP!
+        
     return grads
 
 def get_rms_all_out(grads):
