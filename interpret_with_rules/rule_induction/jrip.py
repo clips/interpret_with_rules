@@ -152,10 +152,17 @@ def optimize_rule_params(data, incremental, dataloader, class_index = None):
     print("Best performance found for N {} and seed {}".format(best_n, best_seed))
     print("Corresponding model: ", best_model)
     print("Corresponding results: ", best_eval.summary())
-    print("Corresponding precision, recall, F-score (of the concerned class for multiclass, unweighted macro f-score for binary): ",
-          best_eval.precision(class_index),
-          best_eval.recall(class_index),
-          best_score)
+    
+    if class_index is not None:
+        print("Corresponding precision, recall, F-score: ",
+              best_eval.precision(class_index),
+              best_eval.recall(class_index),
+              best_score)
+    else:
+        print("Unweighted Macro precision, recall and F-score:",
+              (best_eval.precision(0) + best_eval.precision(1)) / 2,
+              (best_eval.recall(0) + best_eval.recall(1)) / 2,
+              best_score)
     print("Corresponding confusion matrix: ", best_eval.confusion_matrix)
 
 def induce_ripper_rules(data_file, data_dir='../data/', out_file = 'ripperk_rules.out', out_dir='../out/jrip/'):
