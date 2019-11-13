@@ -12,7 +12,7 @@ The code uses python3, and can be run as follows:
 To first train a neural document classifier (for the Science categories in the 20 newsgroups dataset) and then induce rules to explain the classifier's predictions, the following command is used:
 
 ```
-python3 main.py -r gradient -loadmodel False -m nn-model.tar
+python3 main.py -r gradient -loadmodel False -m <modelname.tar>
 ```
 
 If we want to induce rules to explain a pretrained network, we can set the `loadmodel` option to `True` and input the pretrained model name. For replicating the exact results of the paper, we have provided the model we have explained under the name `nn-model.tar`.
