@@ -21,8 +21,8 @@ class Model(object):
     def train(self,
             trainloader,
             int_act_fn = 'relu',
-            output_act_fn='linear',
-            loss_name = 'CrossEntropyLoss',
+            output_act_fn='softmax',
+            loss_name = 'NLLLoss',
             optimizer_name ='Adam',
             n_epochs = 50):
         '''
@@ -44,10 +44,6 @@ class Model(object):
 
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
                 inputs.requires_grad_()
-                
-                if loss_name == 'CrossEntropyLoss' and output_act_fn == 'softmax':
-                    print("Changing output act to linear to make it compatible with the cross entropy loss")
-                    output_act_fn = 'linear'
 
                 fwd_out = self.net.forward(inputs, int_act_fn, output_act_fn)
                 loss = self.net.backprop(fwd_out, labels, loss_name, optimizer_name)

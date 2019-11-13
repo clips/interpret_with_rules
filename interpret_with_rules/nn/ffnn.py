@@ -51,7 +51,7 @@ class FFNNet(nn.Module):
 
         return x
 
-    def backprop(self, fwd_out, target, loss = 'CrossEntropyLoss', optimizer_name ='Adam'):
+    def backprop(self, fwd_out, target, loss = 'NLLLoss', optimizer_name ='Adam'):
         '''
         Perform backpropagation
         :param fwd_out: output of the forward pass
